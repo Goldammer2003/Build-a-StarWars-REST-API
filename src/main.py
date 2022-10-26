@@ -31,14 +31,25 @@ def sitemap():
     return generate_sitemap(app)
 
 @app.route('/user', methods=['GET'])
-def handle_hello():
+def handle_hello ():
 
     response_body = {
         "msg": "Hello, this is your GET /user response "
     }
 
+    
+
     return jsonify(response_body), 200
 
+
+@app.route ('/user', methods= ['POST'])
+def createUser ():
+
+    body = request.get_json ()
+    print (body)
+
+
+    return 'ok'
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
     PORT = int(os.environ.get('PORT', 3000))
