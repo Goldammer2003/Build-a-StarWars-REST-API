@@ -46,10 +46,25 @@ def handle_hello ():
 def createUser ():
 
     body = request.get_json ()
+    if body == None:
+        return "The request body is null", 400 
+
+    if "email" not in body: 
+        return "Add the user email", 400 
+
+    if "password" not in body:
+        return "Add users password",400 
+
+    if "is_active" not in body:
+        return "Add if the user is active",400 
     print (body)
 
+    new_user = User(email=body["email"], password =body["password"], is_active = body["is_active"])
+    db.session.add (new_user)
+    db.session.commit ()
 
-    return 'ok'
+    return "User was added", 200
+    
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
     PORT = int(os.environ.get('PORT', 3000))
